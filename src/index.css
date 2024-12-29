@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body, #root{
+    height: 100%;
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 450;
+  }
+
+  #root{
+    display: grid;
+    /* place-items: center; */
+  }
+}
+
+@layer components{
+  .dayCard{
+    background: rgba(185, 185, 185, 0.069);
+  }
+
+  .search-bar:has(:focus){
+    .search-list{
+      max-height: 250px;
+    }
+  }
+
+  canvas{
+    mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 0.543) 20%, rgba(0, 0, 0, 0.693) 85%, transparent);
+  }
+}
