@@ -7,9 +7,9 @@ export default function SearchList({ data = [] }) {
     const { setLocation, setCity} = useContext(LocationContext);
 
     const handleItemClick = (lat, long, city) => {
-        setLocation(prevL => ({
+        setLocation({
             "lat": lat, "lon": long
-        }));
+        });
 
         setCity(city);
     }
@@ -17,7 +17,8 @@ export default function SearchList({ data = [] }) {
     return (
         <ul className="w-full">
             {
-                data.results.map(item => <SearchItem
+                data.results.map((item, index) => <SearchItem
+                    key={index}
                     text={item.name}
                     code={item.country_code.toLowerCase()}
                     country={item.country}

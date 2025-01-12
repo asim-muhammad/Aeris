@@ -10,7 +10,7 @@ export default function SearchItem({ text, code, country, admin, onClick= ()=>{}
                     {text}
                 </span>
                 <span className="text-gray-400 text-[14px] whitespace-nowrap text-ellipsis overflow-hidden">
-                    {admin} - {country}
+                    {admin ? admin + " - ": ""} {country}
                 </span>
             </div>
         </li>

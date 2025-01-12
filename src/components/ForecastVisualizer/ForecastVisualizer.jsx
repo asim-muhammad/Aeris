@@ -2,23 +2,19 @@ import { useState, useEffect } from "react";
 
 import WeatherChart from "./WeatherChart/WeatherChart"
 import Days from "./Days/Days"
+import DailyInfo from "./Days/DailyInfo/DailyInfo";
 
-import { WiRainMix } from "react-icons/wi";
-import { MdOutlineWaterDrop } from "react-icons/md";
-import { RiWindyFill } from "react-icons/ri";
-
-export default function ForecastVisualizer({ precipitations, data }) {
+export default function ForecastVisualizer({weatherData}) {
     const [currentList, setCurrentList] = useState();
-
+    const [day, setDay] = useState(weatherData["daysOrder"][0]);
 
     useEffect(() => {
-        if (data) {
-            setCurrentList(data[data.DaysOrder[0]])
-        }
-    }, [data]);
+        setCurrentList(weatherData[weatherData.daysOrder[0]].temperature)
+    }, [weatherData]);
 
     const handleDayClick = (day) => {
-        setCurrentList(data[day])
+        setCurrentList(weatherData[day].temperature)
+        setDay(day);
     }
 
     if (!currentList) {
@@ -34,23 +30,13 @@ export default function ForecastVisualizer({ precipitations, data }) {
 
             <WeatherChart data={currentList} />
             <div className="px-4 h-fit mt-8 w-full flex-grow-[2]">
-                <Days data={data}
+                <Days 
+                    weatherData={weatherData}
                     onDayClick={handleDayClick} />
-
-                <ul className="pt-4 text-gray-100">
-                    <li className="flex py-1 items-center gap-2">
-                        <WiRainMix fill="#bcbcbc" size={20} />
-                        <span>Precipitation: {precipitations["Sunday"]} mm</span>
-                    </li>
-                    <li className="flex py-1 items-center gap-2">
-                        <MdOutlineWaterDrop fill="#bcbcbc" size={20} />
-                        <span>Humadity: 90%</span>
-                    </li>
-                    <li className="flex py-1 items-center gap-2">
-                        <RiWindyFill fill="#bcbcbc" size={20} />
-                        <span>Wind: 10km/h</span>
-                    </li>
-                </ul>
+                <DailyInfo 
+                        prec={Math.round(weatherData[day].precipitation)}
+                        humidity={weatherData[day].humidity.toFixed(2)}
+                        windSpeed={weatherData[day].windSpeed.toFixed(2)}/>
             </div>
         </div>
     )

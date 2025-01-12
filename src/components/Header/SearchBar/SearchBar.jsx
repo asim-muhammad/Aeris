@@ -3,7 +3,7 @@ import SearchList from "./SearchList/SearchList";
 import { useEffect, useState } from "react";
 
 export default function () {
-    const [search, setSearch] = useState();
+    const [search, setSearch] = useState("");
     const [data, setData] = useState();
 
     useEffect(() => {
